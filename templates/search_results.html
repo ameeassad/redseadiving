@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+    <script>
+        var matches = {{matches|tojson}} 
+        var query = {{query|tojson}} 
+
+        function replaceText() {
+            var searchword = query;
+
+            var custfilter = new RegExp(searchword, "ig");
+            var repstr = "<span class='highlight'>" + searchword + "</span>";
+
+            $('body').each(function() {
+                $(this).html($(this).html().replace(custfilter, repstr));
+            })
+        }
+
+        $(document).ready(function(){
+            $("#results_number").empty()
+            $("#results_container").empty()
+
+            if (matches.length > 0 && query.length>0){
+                $.each(matches, function(i, datum){
+                    var result= $("<div class='result'> <a class='clickable' href='/view/"+datum["id"]+"/' class='"
+                    + datum["id"]+"'>" + datum["name"] + "</a></div>");
+
+                    $("#results_container").append(result);
+                })
+                
+                var result_statement = "<div>" + matches.length.toString() + " result(s) found. </div>";
+                $("#results_number").append(result_statement);
+
+                replaceText();
+            }
+            else {
+                $("#results_number").append("<div> No results found. </div>");
+            }
+        })
+    </script>
+        
+    <style>
+        h1{
+            padding: 5%;
+            font-size: 18pt;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+        .container{
+            font-size: 11pt;
+        }
+
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Results</h1>
+
+    <div class='container'>
+    
+    <div id="results_number"></div>
+
+    <div id="results_container"></div>
+
+    </div>
+
+
+{% endblock %}

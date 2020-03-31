@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'edit.js') }}"></script>
+
+    <script>
+        var id = {{id}}
+        var name = {{name}} 
+        var image = {{image}}
+        var description={{description}}
+        var maxdepth = {{maxdepth}}
+        var sights = {{sights}}
+    </script>
+
+    <style>
+        h1{
+            padding-left: 15px;
+            font-size: 18pt;
+        }
+        button{
+            font-size: 10pt;
+        }
+        .sighting{
+            margin:2px;
+            padding: 2px;
+            background-color: lightgray;
+        }
+        ul { 
+            padding:0; 
+            margin:0; 
+
+        }
+        li { 
+            list-style-type:none; 
+            display:inline-block; 
+        }
+        #description{
+            font-size: 10pt;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        #maxdepth{
+            font-size: 10pt;
+        }
+        #sights{
+            font-size: 10pt;
+        }
+        img{
+            width: 100%;
+        }
+        .bold{
+            font-weight: 700;
+        }
+        span {
+            display: inline-block;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <h1 id={{id}}>{{name}}</h1>
+    <br><br>
+    
+    <div class="container">
+
+        <div class="row">
+            <div id="image" class="col-md-6">
+                <img src={{image}} alt="image for {{name}}">
+                <br><br>
+            </div>
+
+            <div class="col-md-6">
+                <div id="description">{{description}}</div>
+                <button id="edit">Edit</button> <button id='discard_description'>Discard changes</button>
+            </div>
+
+            <div id="maxdepth" class="col-md-12">
+                <span class="bold">Maximum Depth:</span> {{maxdepth}}m
+            </div>
+
+            <br><br>
+
+            <div id="sights" class="col-md-12">
+            <span class="bold">Sightings: </span> 
+            <div id="sight_options" display="inline-block">
+            <button id="add_sight">Add a sighting</button>
+            </div>
+            
+            <ul id="sight_list">
+            {% for sighting in sights %}
+                <li class=sighting>{{sighting}} <button class="delete">x</button></li>
+            {% endfor %}
+            </ul>
+            </div>
+           
+
+        </div>
+    </div>
+
+
+{% endblock %}
+

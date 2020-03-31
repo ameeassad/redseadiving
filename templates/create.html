@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'create.js') }}"></script>
+
+    <script>
+        var id = {{id}} 
+    </script>
+        
+    <style>
+        h1{
+            padding: 5%;
+            font-size: 18pt;
+        }
+        #create{
+            text-decoration: underline; 
+        }
+        .error{
+            color: red;
+        }
+        #link{
+            color: blue;
+        }
+        .create_container{
+            font-size: 10pt;
+        }
+        #link_container{
+            font-size: 10pt;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Add a Diving Spot</h1>
+
+    <div id="link_container" data-id='{{id}}'></div><br>
+    
+    <div class="container create_container">
+
+        <div class="row">
+            <div class="col-md-1"><label for="name"><b>Name</b></label></div>
+            <div class="col-md-11">
+                <input id ="name" type="text" placeholder="Enter Name" name="name" required>
+                <div class="error" id="name_error"></div>
+            </div>
+            
+            <div class="col-md-1"><label for="image"><b>Image URL</b></label></div>
+            <div class="col-md-5"> 
+                <input id="image" type="text" placeholder="Enter URL" name="image" required>
+                <div class="error" id="image_error"></div>
+            </div>
+
+            <div class="col-md-1"><label for="maxdepth"><b>Maximum Depth</b></label></div>
+            <div class="col-md-5"> 
+                <input id="maxdepth" type="text" placeholder="Enter Max Depth" name="maxdepth">
+                <div class="error" id="maxdepth_error"></div>
+            </div>
+
+            <div class="col-md-1"><label for="description"><b>Description</b></label></div>
+            <div class="col-md-11"> 
+                <textarea id="description" placeholder="Enter Description" name="description" cols="60" rows="15" wrap="soft" required></textarea>   
+                <div class="error" id="description_error"></div>     
+            </div>
+            
+            <div class="col-md-1"><label for="sights"><b>Sights</b></label></div>
+            <div class="col-md-11"> 
+                <input id="sights" type="text" placeholder="Enter Some Sights" name="sights">
+                Separate sightings with commas.
+                <div class="error" id="sights_error"></div>
+            </div>
+            
+        </div>
+
+        <hr>
+        
+        <button type="submit" id="submit_button">Submit</button>
+
+    </div>
+
+
+{% endblock %}
